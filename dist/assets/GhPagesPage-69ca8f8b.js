@@ -1,1 +1,0 @@
-import{_ as s,o as t,a as o,b as e}from"./index-6ae7f397.js";const c={},a={class:"github-pages-page"},n=e("p",null,"利用 git subtree 可以指定目录推送分支的功能：",-1),_=e("code",null," git subtree push --prefix dist origin gh-pages ",-1),r=[n,_];function i(d,g){return t(),o("div",a,r)}const h=s(c,[["render",i]]);export{h as default};
