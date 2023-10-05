@@ -4,6 +4,7 @@
         <code>
             git subtree push --prefix dist origin gh-pages
         </code>
+        <p>Settings -> GitHub Pages </p>
     </div>
 </template>
 
