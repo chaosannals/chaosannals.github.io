@@ -6,7 +6,7 @@
         </div>
         <div>
             <label>格式：</label>
-            <input v-model="data.timestampFormat" />
+            <input v-model="store.timestampFormat" @keydown.enter="onEnterFormat" />
         </div>
         <div>
             <label>结果：</label>
@@ -26,11 +26,12 @@
 <script setup lang="ts">
 import { computed, reactive } from 'vue';
 import { format } from 'date-fns';
+import { useTimestampStore } from '../../stores/toolkit';
 
+const store = useTimestampStore();
 
 const data = reactive({
     timestampText: new Date().getTime().toString(),
-    timestampFormat: 'yyyy-MM-dd HH:mm:ss.SSS',
     dateText: new Date().toUTCString(),
 });
 
@@ -38,12 +39,12 @@ const timestampResult = computed(() => {
     if (/^\d{10}$/.test(data.timestampText)) {
         const date = new Date();
         date.setTime(Number(`${data.timestampText}000`));
-        return format(date, data.timestampFormat);
+        return format(date, store.timestampFormat);
     }
     if (/^\d{13}$/.test(data.timestampText)) {
         const date = new Date();
         date.setTime(Number(data.timestampText));
-        return format(date, data.timestampFormat);
+        return format(date, store.timestampFormat);
     }
     return "不是有效的时间戳";
 });
@@ -51,5 +52,10 @@ const timestampResult = computed(() => {
 const dateResult = computed(() => {
     return Date.parse(data.dateText).toString();
 });
+
+const onEnterFormat = () => {
+    // store.timestampFormats.add(store.timestampFormat);
+    store.timestampFormats.push(store.timestampFormat);
+};
 
 </script>
