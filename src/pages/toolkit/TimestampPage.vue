@@ -9,7 +9,9 @@
             <input v-model="store.timestampFormat" @keydown.enter="onEnterFormat" />
         </div>
         <div>
-            <div v-for="f in store.timestampFormats">{{ f }}</div>
+            <div v-for="f in store.timestampFormats" @click="store.timestampFormat = f">
+                <span>{{ f }}</span>
+            </div>
         </div>
         <div>
             <label>结果：</label>
