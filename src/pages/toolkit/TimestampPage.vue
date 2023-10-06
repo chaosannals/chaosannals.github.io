@@ -9,6 +9,9 @@
             <input v-model="store.timestampFormat" @keydown.enter="onEnterFormat" />
         </div>
         <div>
+            <div v-for="f in store.timestampFormats">{{ f }}</div>
+        </div>
+        <div>
             <label>结果：</label>
             <span>{{ timestampResult }}</span>
         </div>
@@ -54,8 +57,9 @@ const dateResult = computed(() => {
 });
 
 const onEnterFormat = () => {
-    // store.timestampFormats.add(store.timestampFormat);
-    store.timestampFormats.push(store.timestampFormat);
+    //@ts-ignore
+    //store.$hydrate();
+    store.timestampFormats.add(store.timestampFormat);
 };
 
 </script>

@@ -1,9 +1,9 @@
-import { defineStore } from "pinia";
+import { defineStore, StateTree } from "pinia";
 import { ref } from "vue";
-import { parse, stringify } from 'zipson';
+// import { parse, stringify } from 'zipson';
 import { isSet, isString, isPlainObject } from 'lodash';
 
-const deserializeNode = (node) => {
+const deserializeNode = (node: StateTree) => {
     if (isString(node) && node.startsWith('#set')) {
         const list = JSON.parse(node.substring(4));
         console.log('de set', list);
@@ -22,44 +22,46 @@ const deserialize = (treeText: string) => {
     return deserializeNode(tree);
 };
 
-const serializeNode = (node) => {
+const serializeNode = (node: StateTree) => {
     if (isSet(node)) {
         return '#set' + JSON.stringify(Array.from(node))
     } else if (isPlainObject(node)) {
+        const newNode: StateTree = {};
         for (const key in node) {
-            node[key] = serializeNode(node[key]);
+            newNode[key] = serializeNode(node[key]);
         }
+        return newNode;
     }
     return node;
 };
 
-const serialize = (tree) => {
+const serialize = (tree: StateTree) => {
+    console.log('se tree 1', tree);
     const newTree = serializeNode(tree);
     return JSON.stringify(newTree);
 };
 
 export const useTimestampStore = defineStore('timestamp', () => {
     const timestampFormat = ref("yyyy-MM-dd HH:mm:ss.SSS");
-    // const timestampFormats = ref(new Set(["yyyy-MM-dd HH:mm:ss.SSS"]));
-    const timestampFormats = ref(["yyyy-MM-dd HH:mm:ss.SSS"]);
+    const timestampFormats = ref(new Set(["yyyy-MM-dd HH:mm:ss.SSS"]));
 
     return {
         timestampFormat,
         timestampFormats,
     };
 }, {
-    persist: true, // 启用持久化
+    // persist: true, // 启用持久化
     // persist: { // 启用自定义序列化，这里使用 zipson 压缩，和默认一样只支持少数类型，Set 无法持久化。
     //     serializer: {
     //         deserialize: parse,
     //         serialize: stringify,
     //     },
     // },
-    // 不可用，这个库有bug, 其他属性修改时，不会触发 反序列化，而是直接取出。
-    // persist: { // 启用自定义序列化，处理特定类型，这里处理 Set 。
-    //     serializer: {
-    //         deserialize: deserialize,
-    //         serialize: serialize,
-    //     },
-    // },
+    // 注：有个 bug ,用 vue 开发调试工具看到的数据不实时（显示 undefined (Ref)且个数不对），序列化正常，使用也正常。
+    persist: { // 启用自定义序列化，处理特定类型，这里处理 Set 。
+        serializer: {
+            deserialize: deserialize,
+            serialize: serialize,
+        },
+    },
 });
