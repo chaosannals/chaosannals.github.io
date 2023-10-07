@@ -27,14 +27,14 @@ const data = reactive({
 const zipsonEncrypted = computed(() => {
     try {
         return stringify(JSON.parse(data.jsonOriginText));
-    } catch (e) {
+    } catch (e: any) {
         return e.toString();
     }
 });
 const zipsonDecrypted = computed(() => {
     try {
         return JSON.stringify(parse(data.zipsonOriginText));
-    } catch (e) {
+    } catch (e : any) {
         return e.toString();
     }
 });

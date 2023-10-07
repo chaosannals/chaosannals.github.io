@@ -17,7 +17,6 @@
 </template>
 
 <script setup lang="ts">
-import CryptoJS from 'crypto-js';
 import Base64 from 'crypto-js/enc-base64';
 import Utf8 from 'crypto-js/enc-utf8';
 import { reactive, computed } from 'vue';
