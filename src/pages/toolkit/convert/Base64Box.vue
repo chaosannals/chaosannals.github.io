@@ -1,5 +1,6 @@
 <template>
     <div class="base64-box">
+        <h2>Base64</h2>
         <div class="convert-box">
             <label>文本：</label>
             <textarea v-model="data.originText" rows="4"></textarea>
