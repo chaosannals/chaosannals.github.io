@@ -41,7 +41,10 @@ import { readAsArrayBuffer } from '../../../utils/io';
 const data = reactive({
     originText: "",
     originFile: null,
-});
+}) as {
+    originText: string,
+    originFile: WordArray | null,
+};
 
 const textMd5Hex = computed(() => {
     const bytes = Utf8.parse(data.originText);
@@ -65,31 +68,26 @@ const textSha256Base64 = computed(() => {
     return Base64.stringify(Sha256(bytes));
 });
 
-const onOpenFile = async (e) => {
-    const file = e.target.files[0];
-    const buffer = await readAsArrayBuffer(file);
-    //@ts-ignore
-    data.originFile = WordArray.create(buffer);
+const onOpenFile = async (e: Event) => {
+    const file = (e.target as HTMLInputElement).files?.item(0);
+    const buffer = await readAsArrayBuffer(file as File);
+    data.originFile = WordArray.create(Array.from(new Uint8Array(buffer)));
 };
 
 const fileMd5Hex = computed(() => {
-    //@ts-ignore
-    return Hex.stringify(Md5(data.originFile));
+    return Hex.stringify(Md5(data.originFile!));
 });
 
 const fileMd5Base64 = computed(() => {
-    //@ts-ignore
-    return Base64.stringify(Md5(data.originFile));
+    return Base64.stringify(Md5(data.originFile!));
 });
 
 const fileSha256Hex = computed(() => {
-    //@ts-ignore
-    return Hex.stringify(Sha256(data.originFile));
+    return Hex.stringify(Sha256(data.originFile!));
 });
 
 const fileSha256Base64 = computed(() => {
-    //@ts-ignore
-    return Base64.stringify(Sha256(data.originFile));
+    return Base64.stringify(Sha256(data.originFile!));
 });
 </script>
 
