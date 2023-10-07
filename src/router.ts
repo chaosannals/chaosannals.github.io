@@ -1,6 +1,6 @@
 import {
     createRouter,
-    createWebHistory,
+    createWebHashHistory,
 } from "vue-router";
 
 import { kebabCase } from 'lodash';
@@ -36,7 +36,7 @@ function routePages() {
 export const routes = routePages();
 
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHashHistory(),
     routes: routes,
 });
 
