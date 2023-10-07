@@ -1,0 +1,1 @@
+import{d as c,u,c as i,o as t,a as s,F as l,r as p,b as d,t as _,e as m}from"./index-2fdd005c.js";const k={class:"index-page"},h=["onClick"],C=c({__name:"IndexPage",setup(f){const a=u(),o=i(()=>m.map(e=>e.path)),r=e=>a.push(e);return(e,g)=>(t(),s("div",k,[(t(!0),s(l,null,p(o.value,n=>(t(),s("div",{onClick:v=>r(n)},[d("span",null,_(n),1)],8,h))),256))]))}});export{C as default};
