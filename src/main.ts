@@ -3,6 +3,7 @@ import { createPinia } from 'pinia';
 import './style.css';
 import App from './App.vue';
 import router from './router';
+import loader from './loader';
 import { createPersistedState } from 'pinia-plugin-persistedstate';
 
 const persist = createPersistedState({
@@ -16,4 +17,5 @@ const app = createApp(App);
 pinia.use(persist);
 app.use(pinia);
 app.use(router);
+app.use(loader);
 app.mount('#app');

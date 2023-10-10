@@ -2,16 +2,17 @@
     <div class="toolkit-timestamp-page">
         <div>
             <label>时间戳：</label>
-            <input v-model="data.timestampText" />
+            <form-text-input v-model="data.timestampText" />
         </div>
         <div>
             <label>格式：</label>
-            <input v-model="store.timestampFormat" @keydown.enter="onEnterFormat" />
-        </div>
-        <div>
-            <div v-for="f in store.timestampFormats" @click="store.timestampFormat = f">
-                <span>{{ f }}</span>
-            </div>
+            <form-text-input v-model="store.timestampFormat" @keydown.enter="onEnterFormat">
+                <div>
+                    <div v-for="f in store.timestampFormats" @click="store.timestampFormat = f">
+                        <span>{{ f }}</span>
+                    </div>
+                </div>
+            </form-text-input>
         </div>
         <div>
             <label>结果：</label>
@@ -19,7 +20,7 @@
         </div>
         <div>
             <label>日期：</label>
-            <input v-model="data.dateText" />
+            <form-text-input v-model="data.dateText" />
         </div>
         <div>
             <label>结果：</label>
