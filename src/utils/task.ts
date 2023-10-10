@@ -1,7 +1,7 @@
 export class CancelToken {
     isCancel: boolean = false;
-    onCancel: () => void;
-    constructor(onCancel: () => void = () => { }) {
+    onCancel: (this: CancelToken) => void;
+    constructor(onCancel: (this: CancelToken) => void = () => { }) {
         this.onCancel = onCancel.bind(this);
     }
 }

@@ -56,7 +56,7 @@ onBeforeUnmount(() => {
     document.body.removeChild($el.value as HTMLElement);
 });
 
-watch(() => props.visible, (newValue, oldValue) => {
+watch(() => props.visible, (_, __) => {
     if (props.anchor) {
         const p = getPositionInfo(props.anchor);
         style.transform = `translate(${p.x}px, ${p.y + p.height}px)`;
