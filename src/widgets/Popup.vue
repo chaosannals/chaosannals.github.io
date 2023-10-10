@@ -21,8 +21,8 @@ function getPositionInfo(element: HTMLElement) {
     const width = element.offsetWidth;
     const height = element.offsetHeight;
 
-    if (element.parentElement) {
-        const p = getPositionInfo(element.parentElement);
+    if (element.offsetParent) {
+        const p = getPositionInfo(element.offsetParent as HTMLElement);
         x += p.x;
         y += p.y;
     }
@@ -32,7 +32,9 @@ function getPositionInfo(element: HTMLElement) {
 const $el: Ref<HTMLElement | undefined> = ref();
 
 const style = reactive({
-    translate: '0 0',
+    transform: 'translate(0px, 0px)',
+    // background: 'black',
+    transition: 'transform .1s',
 });
 
 const props = defineProps<{
@@ -57,8 +59,8 @@ onBeforeUnmount(() => {
 watch(() => props.visible, (newValue, oldValue) => {
     if (props.anchor) {
         const p = getPositionInfo(props.anchor);
-        style.translate = `${p.x} ${p.y + p.height}px`;
-        console.log('anchor', p);
+        style.transform = `translate(${p.x}px, ${p.y + p.height}px)`;
+        console.log('anchor', p, style);
     }
 });
 
