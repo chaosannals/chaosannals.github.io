@@ -1,5 +1,5 @@
 <template>
-    <div v-show="visible" ref="$el" class="popup" :style="style">
+    <div v-show="visible" ref="$el" class="popup" :style="style" tabindex="-1">
         <slot></slot>
     </div>
 </template>

@@ -7,11 +7,13 @@
         <div>
             <label>格式：</label>
             <form-text-input v-model="store.timestampFormat" @keydown.enter="onEnterFormat">
-                <div>
-                    <div v-for="f in store.timestampFormats" @click="store.timestampFormat = f">
-                        <span>{{ f }}</span>
+                <template #default="slotProps">
+                    <div>
+                        <div v-for="f in store.timestampFormats" @click="store.timestampFormat = f; slotProps.done()">
+                            <span>{{ f }}</span>
+                        </div>
                     </div>
-                </div>
+                </template>
             </form-text-input>
         </div>
         <div>
@@ -66,3 +68,19 @@ const onEnterFormat = () => {
 };
 
 </script>
+
+<style scoped lang="scss">
+.toolkit-timestamp-page {
+    display: flex;
+    flex-direction: column;
+
+    & > div {
+        display: flex;
+        margin: .4vw 1vw;
+
+        & > label {
+            min-width: 6em;
+        }
+    }
+}
+</style>
