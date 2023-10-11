@@ -41,9 +41,12 @@ function globBlogMarkdownInfos(dirPath: string): BlogMarkdownInfo[] {
   const paths = files.map(p => {
     const path = relative(dirPath, p).replace('\\', '/');
     const title = readTitle(p);
+    const stat = statSync(p);
     return {
       path: `/${path}`,
       title: title,
+      createAt: stat.ctime.getTime(),
+      modifyAt: stat.mtime.getTime(),
     };
   });
   console.log('globBlogMarkdownInfos', paths);

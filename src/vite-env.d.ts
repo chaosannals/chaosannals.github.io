@@ -1,8 +1,11 @@
 /// <reference types="vite/client" />
 
 declare class BlogMarkdownInfo {
+    [x: string]: string;
     path: string;
     title: string;
+    createAt: number;
+    modifyAt: number;
 }
 
 declare const __MARKDOWN_FILES__: BlogMarkdownInfo[];
