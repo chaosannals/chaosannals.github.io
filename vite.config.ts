@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { fileURLToPath } from 'url';
 import { dirname, join, relative } from 'path';
-import { readFileSync, readdirSync, statSync } from 'fs';
+import { openSync, readSync, readdirSync, statSync } from 'fs';
 // node 相关的模块 url path fs 因为 TS 没有申明，所以需要 @types/node 模块
 import _ from 'lodash';
 
@@ -26,7 +26,10 @@ function globDir(dirPath: string, suffix: string): string[] {
 }
 
 function readTitle(path: string) {
-  const content = readFileSync(path).toString('utf-8');
+  const fd = openSync(path, 'r');
+  const buffer = Buffer.alloc(1024);
+  const end = readSync(fd, buffer);
+  const content = buffer.subarray(0, end).toString('utf-8');
   const tailIndex = content.indexOf('\n');
   const title = tailIndex > 0 ? content.substring(0, tailIndex) : '';
   return _.trim(title, ' #\r\n');
