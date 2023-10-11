@@ -3,6 +3,9 @@
         <div v-for="link in links" @click="onClickLink(link)" class="page-link">
             <span>{{ link }}</span>
         </div>
+        <a v-for="blog in blogs" :href="blog.path">
+            <span>{{ blog.title }}</span>
+        </a>
     </div>
 </template>
 
@@ -16,6 +19,8 @@ const $router = useRouter();
 const links = computed(() => {
     return routes.map(i => i.path);
 });
+
+const blogs = __MARKDOWN_FILES__;
 
 const onClickLink = (link: string) => $router.push(link);
 
