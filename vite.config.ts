@@ -45,7 +45,7 @@ function globBlogMarkdownInfos(dirPath: string): BlogMarkdownInfo[] {
     return {
       path: `/${path}`,
       title: title,
-      createAt: stat.ctime.getTime(),
+      createAt: stat.birthtime.getTime(),
       modifyAt: stat.mtime.getTime(),
     };
   });
