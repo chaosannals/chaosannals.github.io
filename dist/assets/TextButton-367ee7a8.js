@@ -1,0 +1,1 @@
+import{_ as t,e as o,K as s,M as a,b as n}from"./index-46fc7095.js";const r={};function _(e,c){return n(),o("button",a(e.$attrs,{class:"form-text-button"}),[s(e.$slots,"default",{},void 0,!0)],16)}const d=t(r,[["render",_],["__scopeId","data-v-fa2002a1"]]);export{d as default};
