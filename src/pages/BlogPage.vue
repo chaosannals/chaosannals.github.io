@@ -1,6 +1,6 @@
 <template>
     <div class="blog-page">
-        <div v-html="data.content"></div>
+        <div class="blog-content" v-html="data.content"></div>
     </div>
 </template>
 
@@ -26,17 +26,35 @@ const marked = new Marked(
     })
 );
 
-const loadBlog = async(url: string) => {
+const loadBlog = async (url: string) => {
     const response = await fetch(url);
     const text = await response.text();
     data.content = await marked.parse(text);
 }
 
 onBeforeMount(async () => {
-    await loadBlog(route.query.path as string);
+    if (route.query.path) {
+        await loadBlog(route.query.path as string);
+    }
 });
 
 onBeforeRouteUpdate(async (to, _) => {
-    await loadBlog(to.query.path as string);
+    if (to.query.path) {
+        await loadBlog(to.query.path as string);
+    }
 });
 </script>
+
+<style scoped lang="scss">
+.blog-page {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+
+    .blog-content {
+        margin: 2vw 4vw;
+        padding: 2em;
+        background-color: #f4f4f4;
+    }
+}
+</style>

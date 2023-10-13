@@ -12,5 +12,4 @@ message(STATUS "Debug")
 else()
 message(STATUS "Not Debug")
 endif()
-
 ```

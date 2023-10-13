@@ -1,17 +1,21 @@
 <!-- 首页 -->
 <template>
     <div class="index-page">
-        <h4>页面</h4>
-        <div v-for="link in links" @click="onClickLink(link)" class="page-link">
-            <span>{{ link }}</span>
+        <div class="page-boxes">
+            <div v-for="link in links" @click="onClickLink(link)" class="page-link">
+                <span>{{ link }}</span>
+            </div>
         </div>
-        <h4>博文</h4>
-        <div v-for="blog in data.blogs">
-            <router-link :to="blog.url" class="blog-link">
-                <span>{{ blog.title }}</span>
-                <span class="modify-time">{{ blog.mtime }}</span>
-            </router-link>
-            <div class="blog-summary" v-html="blog.summary"></div>
+        <div class="blog-boxes">
+            <div v-for="blog in data.blogs" class="blog-box">
+                <router-link :to="blog.url" class="blog-link">
+                    <span>{{ blog.title }}</span>
+                    <span class="modify-time">{{ blog.ctime }}</span>
+                    <span class="modify-time">-</span>
+                    <span class="modify-time">{{ blog.mtime }}</span>
+                </router-link>
+                <div class="blog-summary" v-html="blog.summary"></div>
+            </div>
         </div>
     </div>
 </template>
@@ -61,12 +65,13 @@ const loadSummary = async (path: string): Promise<string> => {
 onBeforeMount(async () => {
     const tasks = __MARKDOWN_FILES__.map(async i => {
         i.url = `/blog?path=${i.path}`;
-        i.mtime = format(i.modifyAt, 'yyyy-MM-dd HH:ii:ss');
+        i.ctime = format(i.createAt, 'yyyy-MM-dd')
+        i.mtime = format(i.modifyAt, 'yyyy-MM-dd');
         i.summary = await loadSummary(i.path);
         return i;
     });
     const blogs = await Promise.all(tasks);
-    data.blogs = blogs.sort((a, b) => a.modifyAt - b.modifyAt);
+    data.blogs = blogs.sort((a, b) => b.modifyAt - a.modifyAt);
 });
 
 const onClickLink = (link: string) => $router.push(link);
@@ -76,11 +81,16 @@ const onClickLink = (link: string) => $router.push(link);
 <style scoped lang="scss">
 .index-page {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: start;
     align-items: start;
     width: 100%;
     height: 100%;
+
+    .page-boxes {
+        display: flex;
+        flex-direction: column;
+    }
 
     .page-link {
         font-size: 1vw;
@@ -88,6 +98,21 @@ const onClickLink = (link: string) => $router.push(link);
         padding: 0.4vw;
         border: 1px solid #4f4f4f;
         border-radius: .4vw;
+    }
+
+    .blog-boxes {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        overflow-y: auto;
+        height: 100%;
+        margin: 0 2.4vw;
+
+        .blog-box {
+            margin: 2em 1em;
+            padding: 2vw;
+            border: 1px solid #4f4f4f;
+        }
     }
 
     .blog-link {
