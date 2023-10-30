@@ -41,19 +41,26 @@ const props = defineProps<{
     visible?: boolean,
     anchor?: HTMLElement
 }>();
-const emit = defineEmits(['update:visible']);
+const emit = defineEmits(['update:visible', 'mousedownin']);
 
 const visible = computed({
     get: () => props.visible,
     set: (newValue) => emit("update:visible", newValue),
 });
 
+const onMouseDown = (e: MouseEvent) => {
+    const result = ($el.value as HTMLElement).contains(e.target as Node);
+    emit('mousedownin', result);
+};
+
 onMounted(() => {
     document.body.appendChild($el.value as HTMLElement);
+    document.addEventListener('mousedown', onMouseDown);
 });
 
 onBeforeUnmount(() => {
     document.body.removeChild($el.value as HTMLElement);
+    document.removeEventListener('mousedown', onMouseDown);
 });
 
 watch(() => props.visible, (_, __) => {
