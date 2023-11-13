@@ -6,6 +6,7 @@ declare class BlogMarkdownInfo {
     title: string;
     createAt: number;
     modifyAt: number;
+    gitLog: string[];
 }
 
 declare const __MARKDOWN_FILES__: BlogMarkdownInfo[];
