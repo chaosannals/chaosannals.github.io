@@ -8,7 +8,7 @@
 import hljs from 'highlight.js';
 import { Marked } from 'marked';
 import { markedHighlight } from 'marked-highlight';
-import { onBeforeMount, reactive } from 'vue';
+import { onActivated, reactive } from 'vue';
 import { onBeforeRouteUpdate, useRoute } from 'vue-router';
 
 const data = reactive({
@@ -32,7 +32,7 @@ const loadBlog = async (url: string) => {
     data.content = await marked.parse(text);
 }
 
-onBeforeMount(async () => {
+onActivated(async () => {
     if (route.query.path) {
         await loadBlog(route.query.path as string);
     }
