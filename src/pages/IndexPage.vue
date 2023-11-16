@@ -63,6 +63,7 @@ const loadSummary = async (path: string): Promise<string> => {
 }
 
 onBeforeMount(async () => {
+    console.log('__MARKDOWN_FILES__', __MARKDOWN_FILES__);
     const tasks = __MARKDOWN_FILES__.map(async i => {
         i.url = `/blog?path=${i.path}`;
         i.ctime = format(i.createAt, 'yyyy-MM-dd')
