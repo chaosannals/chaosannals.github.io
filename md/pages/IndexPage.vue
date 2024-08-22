@@ -3,11 +3,16 @@
     <VanButton plain type="primary" @click="onClickShowToast">
       <span>Toast</span>
     </VanButton>
+    <VanButton v-for="r in mdRoutes" plain @click="onClickRouteTo(r.path)">
+      <span>{{ r.path }}</span>
+    </VanButton>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { showToast } from "vant";
+import { mdRoutes, router } from "../../src/router";
+import { onBeforeMount } from "vue";
 
 const onClickShowToast = () => {
   showToast({
@@ -15,6 +20,12 @@ const onClickShowToast = () => {
     position: "top",
   });
 };
+
+const onClickRouteTo = (path: string) => {
+  router.push(path);
+};
+
+onBeforeMount(() => {});
 </script>
 
 <style lang="scss" scoped>

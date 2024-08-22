@@ -1,6 +1,9 @@
 import { RouteRecordRaw, createRouter, createWebHashHistory } from "vue-router";
 
 import { kebabCase } from "lodash";
+import { isMd } from "./utils/platform";
+import MdApp from "../md/MdApp.vue";
+import { useAppStore } from "./stores/app";
 
 function makePages(
   pages: Record<string, () => Promise<unknown>>,
@@ -24,44 +27,53 @@ function makePages(
   return result;
 }
 
+function makePcRoutes(): RouteRecordRaw[] {
+  const pages = import.meta.glob("./pages/**/*Page.vue");
+  return makePages(pages);
+}
+
+function makeMdRoutes(): RouteRecordRaw[] {
+  const pages = import.meta.glob("../md/pages/**/*Page.vue");
+  return makePages(pages, "/md/");
+}
+
+export const pcRoutes = makePcRoutes();
+export const mdRoutes = makeMdRoutes();
+
 function routePages(): RouteRecordRaw[] {
   const result: RouteRecordRaw[] = [
     {
       path: "/",
       component: () => import("./pages/IndexPage.vue"),
     },
+    {
+      path: "/md",
+      component: MdApp,
+      children: mdRoutes,
+    },
   ];
 
-  const pages = import.meta.glob("./pages/**/*Page.vue");
-  const r1 = makePages(pages);
-  r1.forEach((i) => result.push(i));
-
-  const mdPages = import.meta.glob("../md/pages/**/*Page.vue");
-  const r2 = makePages(mdPages, "/md/");
-  r2.forEach((i) => result.push(i));
+  pcRoutes.forEach((i) => result.push(i));
 
   console.log("routes", result);
+  console.log("pc", pcRoutes);
+  console.log("md", mdRoutes);
 
   return result;
 }
 
 export const routes = routePages();
 
-const router = createRouter({
+export const router = createRouter({
   history: createWebHashHistory(),
   routes: routes,
 });
 
-function isMd() {
-  const r =
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    );
-  console.log("isMd", r, navigator.userAgent);
-  return r;
-}
-
 router.beforeEach(async (to, from) => {
+  const appStore = useAppStore();
+
+  appStore.routeFrom = from;
+
   if (isMd()) {
     if (!to.fullPath.startsWith("/md")) {
       console.log("redirect md", to.fullPath);
@@ -75,6 +87,12 @@ router.beforeEach(async (to, from) => {
   }
 
   return true;
+});
+
+router.afterEach(async (to, from) => {
+  const appStore = useAppStore();
+  appStore.hasBack = router.options.history.state.back != null;
+  console.log("history", router.options.history);
 });
 
 export default router;
