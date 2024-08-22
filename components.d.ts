@@ -16,5 +16,6 @@ declare module 'vue' {
     TextButton: typeof import('./src/widgets/form/TextButton.vue')['default']
     TextInput: typeof import('./src/widgets/form/TextInput.vue')['default']
     TextSelect: typeof import('./src/widgets/form/TextSelect.vue')['default']
+    VanButton: typeof import('vant/es')['Button']
   }
 }

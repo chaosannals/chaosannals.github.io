@@ -6,6 +6,7 @@ import 'normalize.css';
 import App from './App.vue';
 import router from './router';
 import { createPersistedState } from 'pinia-plugin-persistedstate';
+//import { Toast } from 'vant';
 
 const persist = createPersistedState({
     storage: localStorage,
@@ -16,6 +17,7 @@ const pinia = createPinia();
 const app = createApp(App);
 
 pinia.use(persist);
+//app.use(Toast);
 app.use(pinia);
 app.use(router);
 app.mount('#app');
