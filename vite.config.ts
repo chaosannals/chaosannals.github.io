@@ -9,6 +9,9 @@ import { dirname, join } from 'path';
 import _ from 'lodash';
 import { globBlogMarkdownInfos } from './inc/blog';
 
+// GitHub Pages 静态服务器不支持在路径里的符号（以下正则）和 _ 开头
+const INVALID_CHAR_REGEX = /[\x00-\x1F\x7F<>*#"{}|^[\]`;?:&=+$,]/g;
+
 const here = fileURLToPath(import.meta.url);
 const projectDir = dirname(here);
 const publicDir = join(projectDir, 'public');
@@ -19,6 +22,15 @@ export default defineConfig(async ({ command, mode }) => {
   return {
     define: {
       __MARKDOWN_FILES__: await globBlogMarkdownInfos(publicDir),
+    },
+    build: {
+      rollupOptions: {
+        output: {
+          sanitizeFileName(name: string) {
+            return _.trim(name, '_').replace(INVALID_CHAR_REGEX, "");
+          },
+        },
+      },
     },
     plugins: [
       vue(),
