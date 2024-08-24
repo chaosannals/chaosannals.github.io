@@ -1,6 +1,7 @@
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import './style.css';
+import 'vant/lib/index.css';
 import 'highlight.js/styles/github.css';
 import 'normalize.css';
 import App from './App.vue';

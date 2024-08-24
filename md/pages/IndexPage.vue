@@ -3,9 +3,14 @@
     <VanButton plain type="primary" @click="onClickShowToast">
       <span>Toast</span>
     </VanButton>
-    <VanButton v-for="r in mdRoutes" plain @click="onClickRouteTo(r.path)">
-      <span>{{ r.path }}</span>
-    </VanButton>
+    <VanIndexBar>
+      <VanIndexAnchor index="路由" />
+      <VanCell
+        v-for="r in mdRoutes"
+        :title="r.path"
+        @click="onClickRouteTo(r.path)"
+      />
+    </VanIndexBar>
   </div>
 </template>
 

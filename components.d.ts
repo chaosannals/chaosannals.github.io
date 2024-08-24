@@ -17,9 +17,12 @@ declare module 'vue' {
     TextInput: typeof import('./src/widgets/form/TextInput.vue')['default']
     TextSelect: typeof import('./src/widgets/form/TextSelect.vue')['default']
     VanButton: typeof import('vant/es')['Button']
+    VanCell: typeof import('vant/es')['Cell']
     VanCellGroup: typeof import('vant/es')['CellGroup']
     VanField: typeof import('vant/es')['Field']
     VanForm: typeof import('vant/es')['Form']
+    VanIndexAnchor: typeof import('vant/es')['IndexAnchor']
+    VanIndexBar: typeof import('vant/es')['IndexBar']
     VanNavBar: typeof import('vant/es')['NavBar']
   }
 }
