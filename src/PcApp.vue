@@ -1,50 +1,52 @@
 <template>
   <ElConfigProvider :locale="zhCn" size="small" :z-index="4000">
-    <div class="pc-app">
-      <ElMenu
-        mode="horizontal"
-        :ellipsis="false"
-        :default-active="activeIndex"
-        @select="onSelect"
-      >
-        <ElMenuItem index="logo" @click="onClickRouteTo('/index')">
-          <img
-            style="height: 64px"
-            src="./assets/logo-banner.png"
-            alt="Element logo"
-          />
-        </ElMenuItem>
-        <ElMenuItem index="undetermined">待定</ElMenuItem>
-        <ElSubMenu index="route">
-          <template #title>
-            <span>PC 路由</span>
-          </template>
-          <template v-for="r in pcRoutes">
-            <ElSubMenu v-if="r.children" :key="r.path">
-              <template #title>{{ r.name }}</template>
-              <ElMenuItem
-                v-for="child in r.children"
-                :key="child.path"
-                @click="onClickRouteTo(child.path)"
-              >
-                <span>{{ child.path }}</span>
-              </ElMenuItem>
-            </ElSubMenu>
-            <template v-else>
-              <ElMenuItem :key="r.path" @click="onClickRouteTo(r.path)">
-                <span>{{ r.path }}</span>
-              </ElMenuItem>
+    <ElWatermark class="watermark" :font="font" :content="content">
+      <div class="pc-app">
+        <ElMenu
+          mode="horizontal"
+          :ellipsis="false"
+          :default-active="activeIndex"
+          @select="onSelect"
+        >
+          <ElMenuItem index="logo" @click="onClickRouteTo('/index')">
+            <img
+              style="height: 64px"
+              src="./assets/logo-banner.png"
+              alt="Element logo"
+            />
+          </ElMenuItem>
+          <ElMenuItem index="undetermined">待定</ElMenuItem>
+          <ElSubMenu index="route">
+            <template #title>
+              <span>PC 路由</span>
             </template>
-          </template>
-        </ElSubMenu>
-      </ElMenu>
-      <RouterView v-slot="{ Component }">
-        <KeepAlive>
-          <component :is="Component" />
-        </KeepAlive>
-      </RouterView>
-    </div>
-    <ElBacktop :right="100" :bottom="100" />
+            <template v-for="r in pcRoutes">
+              <ElSubMenu v-if="r.children" :key="r.path">
+                <template #title>{{ r.name }}</template>
+                <ElMenuItem
+                  v-for="child in r.children"
+                  :key="child.path"
+                  @click="onClickRouteTo(child.path)"
+                >
+                  <span>{{ child.path }}</span>
+                </ElMenuItem>
+              </ElSubMenu>
+              <template v-else>
+                <ElMenuItem :key="r.path" @click="onClickRouteTo(r.path)">
+                  <span>{{ r.path }}</span>
+                </ElMenuItem>
+              </template>
+            </template>
+          </ElSubMenu>
+        </ElMenu>
+        <RouterView v-slot="{ Component }">
+          <KeepAlive>
+            <component :is="Component" />
+          </KeepAlive>
+        </RouterView>
+      </div>
+      <ElBacktop :right="100" :bottom="100" />
+    </ElWatermark>
   </ElConfigProvider>
 </template>
 
@@ -57,6 +59,10 @@ import { useRouter } from "vue-router";
 
 const activeIndex = ref("undetermined");
 const router = useRouter();
+const font = ref({
+  color: "rgba(0, 0, 0, .15)",
+});
+const content = ref(["ChaosAnnals's", "GitHub Pages"]);
 
 const onSelect = (key: string, keyPath: string[]) => {
   console.log(key, keyPath);

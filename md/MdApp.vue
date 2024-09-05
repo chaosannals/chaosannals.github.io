@@ -1,5 +1,11 @@
 <template>
   <VanConfigProvider :theme="theme" class="md-app">
+    <VanWatermark
+      image="../src/assets/logo-banner.png"
+      opacity="0.2"
+      rotate="44"
+      :full-page="true"
+    />
     <VanNavBar
       title="ChaosAnnals's GitHub Pages"
       :left-arrow="appStore.hasBack"
