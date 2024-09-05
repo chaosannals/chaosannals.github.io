@@ -1,42 +1,50 @@
 <template>
   <ElConfigProvider :locale="zhCn" size="small" :z-index="4000">
-    <ElMenu
-      mode="horizontal"
-      :ellipsis="false"
-      :default-active="activeIndex"
-      @select="onSelect"
-    >
-      <ElMenuItem index="logo">
-        <img style="width: 100px" src="./assets/logo.svg" alt="Element logo" />
-      </ElMenuItem>
-      <ElSubMenu index="route">
-        <template #title>
-          <span>PC 路由</span>
-        </template>
-        <template v-for="r in pcRoutes">
-          <ElSubMenu v-if="r.children" :key="r.path">
-            <template #title>{{ r.name }}</template>
-            <ElMenuItem
-              v-for="child in r.children"
-              :key="child.path"
-              @click="onClickRouteTo(child.path)"
-            >
-              <span>{{ child.path }}</span>
-            </ElMenuItem>
-          </ElSubMenu>
-          <template v-else>
-            <ElMenuItem :key="r.path" @click="onClickRouteTo(r.path)">
-              <span>{{ r.path }}</span>
-            </ElMenuItem>
+    <div class="pc-app">
+      <ElMenu
+        mode="horizontal"
+        :ellipsis="false"
+        :default-active="activeIndex"
+        @select="onSelect"
+      >
+        <ElMenuItem index="logo" @click="onClickRouteTo('/index')">
+          <img
+            style="width: 100px"
+            src="./assets/logo.svg"
+            alt="Element logo"
+          />
+        </ElMenuItem>
+        <ElMenuItem index="undetermined">待定</ElMenuItem>
+        <ElSubMenu index="route">
+          <template #title>
+            <span>PC 路由</span>
           </template>
-        </template>
-      </ElSubMenu>
-    </ElMenu>
-    <RouterView v-slot="{ Component }">
-      <KeepAlive>
-        <component :is="Component" />
-      </KeepAlive>
-    </RouterView>
+          <template v-for="r in pcRoutes">
+            <ElSubMenu v-if="r.children" :key="r.path">
+              <template #title>{{ r.name }}</template>
+              <ElMenuItem
+                v-for="child in r.children"
+                :key="child.path"
+                @click="onClickRouteTo(child.path)"
+              >
+                <span>{{ child.path }}</span>
+              </ElMenuItem>
+            </ElSubMenu>
+            <template v-else>
+              <ElMenuItem :key="r.path" @click="onClickRouteTo(r.path)">
+                <span>{{ r.path }}</span>
+              </ElMenuItem>
+            </template>
+          </template>
+        </ElSubMenu>
+      </ElMenu>
+      <RouterView v-slot="{ Component }">
+        <KeepAlive>
+          <component :is="Component" />
+        </KeepAlive>
+      </RouterView>
+    </div>
+    <ElBacktop :right="100" :bottom="100" />
   </ElConfigProvider>
 </template>
 
@@ -60,9 +68,9 @@ const onClickRouteTo = (path: string) => {
 </script>
 
 <style lang="scss" scoped>
-:deep(.el-menu--horizontal) {
-  & > :deep(.el-menu-item:nth-child(1)) {
-    margin-left: auto;
+.pc-app {
+  :deep(.el-menu--horizontal > .el-menu-item:nth-child(1)) {
+    margin-right: auto;
   }
 }
 </style>

@@ -1,10 +1,12 @@
 <template>
   <ElAutoResizer @resize="onResize">
-    <RouterView v-slot="{ Component }">
-      <KeepAlive>
-        <component :is="Component" />
-      </KeepAlive>
-    </RouterView>
+    <ElWatermark :font="font" :content="content">
+      <RouterView v-slot="{ Component }">
+        <KeepAlive>
+          <component :is="Component" />
+        </KeepAlive>
+      </RouterView>
+    </ElWatermark>
   </ElAutoResizer>
 </template>
 
@@ -12,9 +14,14 @@
 import { ElAutoResizer } from "element-plus";
 import { useRoute, useRouter } from "vue-router";
 import { swapMd } from "./router";
+import { ref } from "vue";
 
 const route = useRoute();
 const router = useRouter();
+const font = ref({
+  color: "rgba(0, 0, 0, .15)",
+});
+const content = ref(["ChaosAnnals's", "GitHub Pages"]);
 
 const onResize = (event: { width: number; height: number }) => {
   console.log("resize", event.width, event.height);

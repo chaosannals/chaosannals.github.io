@@ -1,11 +1,6 @@
 <!-- 首页 -->
 <template>
   <div class="index-page">
-    <div class="page-boxes">
-      <div v-for="link in links" @click="onClickLink(link)" class="page-link">
-        <span>{{ link }}</span>
-      </div>
-    </div>
     <div class="blog-boxes">
       <div v-for="blog in data.blogs" class="blog-box">
         <router-link :to="blog.url" class="blog-link">
@@ -50,10 +45,6 @@ const data = reactive({
   blogs: BlogMarkdownInfo[];
 });
 
-const links = computed(() => {
-  return pcRoutes.map((i) => i.path);
-});
-
 const loadSummary = async (path: string): Promise<string> => {
   const bytes = await fetchHeadUtf8(path, 100);
   //@ts-ignore
@@ -74,8 +65,6 @@ onBeforeMount(async () => {
   const blogs = await Promise.all(tasks);
   data.blogs = blogs.sort((a, b) => b.modifyAt - a.modifyAt);
 });
-
-const onClickLink = (link: string) => $router.push(link);
 </script>
 
 <style scoped lang="scss">
@@ -86,19 +75,6 @@ const onClickLink = (link: string) => $router.push(link);
   align-items: start;
   width: 100%;
   height: 100%;
-
-  .page-boxes {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .page-link {
-    font-size: 1vw;
-    margin: 0.4vw;
-    padding: 0.4vw;
-    border: 1px solid #4f4f4f;
-    border-radius: 0.4vw;
-  }
 
   .blog-boxes {
     display: flex;
