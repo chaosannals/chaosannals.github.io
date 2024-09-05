@@ -20,8 +20,8 @@
             <template #title>
               <span>PC 路由</span>
             </template>
-            <template v-for="r in pcRoutes">
-              <ElSubMenu v-if="r.children" :key="r.path">
+            <template v-for="r in pcRoutes" :key="r.path">
+              <ElSubMenu v-if="r.children" :index="r.path">
                 <template #title>{{ r.name }}</template>
                 <ElMenuItem
                   v-for="child in r.children"
@@ -31,8 +31,8 @@
                   <span>{{ child.path }}</span>
                 </ElMenuItem>
               </ElSubMenu>
-              <template v-else>
-                <ElMenuItem :key="r.path" @click="onClickRouteTo(r.path)">
+              <template v-else :key="r.path">
+                <ElMenuItem @click="onClickRouteTo(r.path)">
                   <span>{{ r.path }}</span>
                 </ElMenuItem>
               </template>

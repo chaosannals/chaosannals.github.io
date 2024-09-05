@@ -107,7 +107,8 @@ router.beforeEach(async (to, from) => {
   return true;
 });
 
-router.afterEach(async (to, from) => {
+// router.afterEach(async (to, from) => {
+router.afterEach(async () => {
   const appStore = useAppStore();
   appStore.hasBack = router.options.history.state.back != null;
   console.log("history", router.options.history);
