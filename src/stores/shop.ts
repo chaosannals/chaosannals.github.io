@@ -7,7 +7,7 @@ export const useShopStore = defineStore(
     const car = ref([]);
 
     return {
-        car,
+      car,
     };
   },
   {
