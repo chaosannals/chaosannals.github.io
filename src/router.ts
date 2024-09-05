@@ -92,6 +92,13 @@ router.beforeEach(async (to, from) => {
 
   appStore.routeFrom = from;
 
+  if (to.fullPath == "/md/shop/index") {
+    appStore.isMdShowTabbar = false;
+  }
+  if (to.fullPath == "/md/index") {
+    appStore.isMdShowTabbar = true;
+  }
+
   const v = swapMd(to);
   if (v) {
     return v;

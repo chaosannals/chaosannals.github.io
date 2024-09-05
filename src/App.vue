@@ -1,6 +1,6 @@
 <template>
   <ElAutoResizer @resize="onResize">
-    <ElWatermark :font="font" :content="content">
+    <ElWatermark class="watermark" :font="font" :content="content">
       <RouterView v-slot="{ Component }">
         <KeepAlive>
           <component :is="Component" />
@@ -32,4 +32,9 @@ const onResize = (event: { width: number; height: number }) => {
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.watermark {
+  width: 100%;
+  height: 100%;
+}
+</style>
