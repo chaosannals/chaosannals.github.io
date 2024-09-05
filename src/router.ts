@@ -50,6 +50,7 @@ function routePages(): RouteRecordRaw[] {
     {
       path: "/",
       component: () => import("./pages/IndexPage.vue"),
+      children: pcRoutes,
     },
     {
       path: "/md",
@@ -58,11 +59,7 @@ function routePages(): RouteRecordRaw[] {
     },
   ];
 
-  pcRoutes.forEach((i) => result.push(i));
-
   console.log("routes", result);
-  console.log("pc", pcRoutes);
-  console.log("md", mdRoutes);
 
   return result;
 }
