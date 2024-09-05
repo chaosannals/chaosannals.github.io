@@ -1,4 +1,9 @@
-import { RouteRecordRaw, createRouter, createWebHashHistory } from "vue-router";
+import {
+  type RouteLocationNormalized,
+  type RouteRecordRaw,
+  createRouter,
+  createWebHashHistory,
+} from "vue-router";
 
 import { kebabCase } from "lodash";
 import { isMd } from "./utils/platform";
@@ -69,11 +74,7 @@ export const router = createRouter({
   routes: routes,
 });
 
-router.beforeEach(async (to, from) => {
-  const appStore = useAppStore();
-
-  appStore.routeFrom = from;
-
+export const swapMd = (to: RouteLocationNormalized) => {
   if (isMd()) {
     if (!to.fullPath.startsWith("/md")) {
       console.log("redirect md", to.fullPath);
@@ -84,6 +85,18 @@ router.beforeEach(async (to, from) => {
       console.log("redirect pc", to.fullPath);
       return { path: "/index" };
     }
+  }
+  return null;
+};
+
+router.beforeEach(async (to, from) => {
+  const appStore = useAppStore();
+
+  appStore.routeFrom = from;
+
+  const v = swapMd(to);
+  if (v) {
+    return v;
   }
 
   return true;

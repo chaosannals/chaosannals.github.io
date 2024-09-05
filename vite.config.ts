@@ -8,6 +8,7 @@ import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 // node 相关的模块 url path fs 因为 TS 没有申明，所以需要 @types/node 模块
 import _ from "lodash";
+import pxToViewport8 from "postcss-px-to-viewport-8-plugin";
 import { globBlogMarkdownInfos } from "./inc/blog";
 
 // GitHub Pages 静态服务器不支持在路径里的符号（以下正则）和 _ 开头
@@ -42,5 +43,24 @@ export default defineConfig(async ({ command, mode }) => {
         resolvers: [VantResolver(), ElementPlusResolver()],
       }),
     ],
+    css: {
+      postcss: {
+        plugins: [
+          pxToViewport8({
+            unitToConvert: 'px',
+            unitPrecision: 5, // 单位转换后保留的精度
+            propList: ['*'], // 能转化为vw的属性列表
+            viewportWidth: 375,
+            viewportUnit: "vw",
+            fontViewportUnit: 'vw', // 字体使用的视口单位
+            include: [/\/md\//],
+            exclude: [/node_modules/],
+            minPixelValue: 1,
+            mediaQuery: true,
+            replace: true,
+          }),
+        ],
+      },
+    },
   };
 });

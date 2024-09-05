@@ -1,5 +1,5 @@
 <template>
-  <div class="md-app">
+  <VanConfigProvider :theme="theme" class="md-app">
     <VanNavBar
       title="Vant 示例"
       :left-arrow="appStore.hasBack"
@@ -10,14 +10,15 @@
         <component :is="Component" />
       </KeepAlive>
     </RouterView>
-  </div>
+  </VanConfigProvider>
 </template>
 
 <script lang="ts" setup>
-import { onBeforeMount } from "vue";
+import { onBeforeMount, ref } from "vue";
 import { router } from "../src/router";
 import { useAppStore } from "../src/stores/app";
 
+const theme = ref('light');
 const appStore = useAppStore();
 
 const onClickLeft = () => {

@@ -34,6 +34,7 @@
     "@types/node": "^20.8.4",
     "@vant/auto-import-resolver": "^1.2.1",
     "@vitejs/plugin-vue": "^4.2.3",
+    "postcss-px-to-viewport-8-plugin": "^1.2.5",
     "sass": "^1.69.0",
     "simple-git": "^3.20.0",
     "typescript": "^5.0.2",
