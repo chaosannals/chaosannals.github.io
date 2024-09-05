@@ -8,6 +8,7 @@ import {
 import { kebabCase } from "lodash";
 import { isMd } from "./utils/platform";
 import MdApp from "../md/MdApp.vue";
+import PcApp from "./PcApp.vue";
 import { useAppStore } from "./stores/app";
 
 function makePages(
@@ -49,7 +50,7 @@ function routePages(): RouteRecordRaw[] {
   const result: RouteRecordRaw[] = [
     {
       path: "/",
-      component: () => import("./pages/IndexPage.vue"),
+      component: PcApp,
       children: pcRoutes,
     },
     {

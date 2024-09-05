@@ -8,6 +8,9 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElMenu: typeof import('element-plus/es')['ElMenu']
+    ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
+    ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ModalDialog: typeof import('./src/widgets/ModalDialog.vue')['default']
     NumberInput: typeof import('./src/widgets/form/NumberInput.vue')['default']
     Popup: typeof import('./src/widgets/Popup.vue')['default']
