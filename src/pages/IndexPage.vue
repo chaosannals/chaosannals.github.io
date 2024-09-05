@@ -3,12 +3,12 @@
   <div class="index-page">
     <div class="blog-boxes">
       <div v-for="blog in data.blogs" class="blog-box">
-        <router-link :to="blog.url" class="blog-link">
+        <RouterLink :to="blog.url" class="blog-link">
           <span>{{ blog.title }}</span>
           <span class="modify-time">{{ blog.ctime }}</span>
           <span class="modify-time">-</span>
           <span class="modify-time">{{ blog.mtime }}</span>
-        </router-link>
+        </RouterLink>
         <div class="blog-summary" v-html="blog.summary"></div>
       </div>
     </div>
@@ -16,9 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeMount, reactive } from "vue";
-import { pcRoutes } from "../router";
-import { useRouter } from "vue-router";
+import { onBeforeMount, reactive } from "vue";
 import { format } from "date-fns";
 import { fetchHeadUtf8 } from "../utils/io";
 import WordArray from "crypto-js/lib-typedarrays";
@@ -36,8 +34,6 @@ const marked = new Marked(
     },
   })
 );
-
-const $router = useRouter();
 
 const data = reactive({
   blogs: [],

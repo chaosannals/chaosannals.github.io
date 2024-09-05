@@ -9,8 +9,8 @@
       >
         <ElMenuItem index="logo" @click="onClickRouteTo('/index')">
           <img
-            style="width: 100px"
-            src="./assets/logo.svg"
+            style="height: 64px"
+            src="./assets/logo-banner.png"
             alt="Element logo"
           />
         </ElMenuItem>
@@ -55,7 +55,7 @@ import { ref } from "vue";
 import { pcRoutes } from "./router";
 import { useRouter } from "vue-router";
 
-const activeIndex = ref("logo");
+const activeIndex = ref("undetermined");
 const router = useRouter();
 
 const onSelect = (key: string, keyPath: string[]) => {
@@ -69,6 +69,7 @@ const onClickRouteTo = (path: string) => {
 
 <style lang="scss" scoped>
 .pc-app {
+  --el-menu-active-color: #313131;
   :deep(.el-menu--horizontal > .el-menu-item:nth-child(1)) {
     margin-right: auto;
   }
