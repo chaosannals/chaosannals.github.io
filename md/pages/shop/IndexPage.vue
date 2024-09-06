@@ -51,7 +51,13 @@
   </div>
   <VanActionBar>
     <VanActionBarIcon icon="chat-o" text="客服" dot />
-    <VanActionBarIcon icon="cart-o" text="购物车" badge="5" />
+    <VanActionBarIcon
+      icon="cart-o"
+      text="购物车"
+      badge="5"
+      to="/md/shop/car"
+      :replace="false"
+    />
     <VanActionBarButton type="warning" text="加入购物车" />
     <VanActionBarButton type="danger" text="立即购买" />
   </VanActionBar>

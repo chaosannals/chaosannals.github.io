@@ -1,7 +1,7 @@
 <template>
   <VanConfigProvider :theme="theme" class="md-app">
     <VanWatermark
-      image="../src/assets/logo-banner.png"
+      :image="watermarkImgSrc"
       opacity="0.2"
       rotate="44"
       :full-page="true"
@@ -52,6 +52,11 @@ import { onBeforeMount, ref } from "vue";
 import { useAppStore } from "../src/stores/app";
 import { useRouter } from "vue-router";
 import { delay } from "../src/utils/time";
+// import watermarkImgSrc from "../src/assets/logo-banner.png?url";
+const watermarkImgSrc = new URL(
+  "../src/assets/logo-banner.png",
+  import.meta.url
+).href;
 
 const theme = ref("light");
 const active = ref(0);
