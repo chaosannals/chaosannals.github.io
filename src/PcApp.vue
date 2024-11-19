@@ -15,6 +15,9 @@
               alt="Element logo"
             />
           </ElMenuItem>
+          <ElMenuItem index="fingerprint" >
+            <span>{{ appStore.visitorId }}</span>
+          </ElMenuItem>
           <ElMenuItem index="undetermined">待定</ElMenuItem>
           <ElSubMenu index="route">
             <template #title>
@@ -56,7 +59,10 @@ import zhCn from "element-plus/es/locale/lang/zh-cn";
 import { ref } from "vue";
 import { pcRoutes } from "./router";
 import { useRouter } from "vue-router";
+import { useAppStore } from "./stores/app";
 
+
+const appStore = useAppStore();
 const activeIndex = ref("undetermined");
 const router = useRouter();
 const font = ref({

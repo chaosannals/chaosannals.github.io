@@ -30,9 +30,14 @@
 <script lang="ts" setup>
 import { showToast } from "vant";
 import { mdRoutes, router } from "../../src/router";
-import { onBeforeMount } from "vue";
+import { computed, onBeforeMount } from "vue";
+import { useAppStore } from "../../src/stores/app";
 
-const text = "慢慢来，不要急，生活给你出了难题，可也终有一天会给出答案。";
+const appStore = useAppStore();
+
+const text = computed(() => {
+  return `指纹：（${appStore.visitorId}）慢慢来，不要急，生活给你出了难题，可也终有一天会给出答案。`;
+});
 const keywords = "难题";
 
 const images = [

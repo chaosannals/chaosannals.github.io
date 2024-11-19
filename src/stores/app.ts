@@ -9,11 +9,15 @@ export const useAppStore = defineStore(
     const routeFrom = ref<RouteLocationNormalized>();
     const isMdShowTabbar = ref(true);
     const notice = ref("");
+    
+    const visitorId = ref("");
+
     return {
       hasBack,
       routeFrom,
       isMdShowTabbar,
       notice,
+      visitorId,
     };
   },
   {
