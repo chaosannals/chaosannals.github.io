@@ -15,8 +15,11 @@
               alt="Element logo"
             />
           </ElMenuItem>
-          <ElMenuItem index="fingerprint" >
+          <ElMenuItem index="fingerprint">
             <span>{{ appStore.visitorId }}</span>
+          </ElMenuItem>
+          <ElMenuItem index="clientjs">
+            <span>{{ appStore.fingerprint }}</span>
           </ElMenuItem>
           <ElMenuItem index="undetermined">待定</ElMenuItem>
           <ElSubMenu index="route">
@@ -60,7 +63,6 @@ import { ref } from "vue";
 import { pcRoutes } from "./router";
 import { useRouter } from "vue-router";
 import { useAppStore } from "./stores/app";
-
 
 const appStore = useAppStore();
 const activeIndex = ref("undetermined");

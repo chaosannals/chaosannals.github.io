@@ -11,7 +11,11 @@
       </VanSwipeItem>
     </VanSwipe>
     <VanDivider dashed>分割</VanDivider>
-    <VanHighlight :keywords="keywords" :source-string="text" />
+    <VanHighlight
+      v-for="text in texts"
+      :keywords="keywords"
+      :source-string="text"
+    />
     <VanDivider>分割</VanDivider>
     <VanButton plain type="primary" @click="onClickShowToast">
       <span>Toast</span>
@@ -35,10 +39,14 @@ import { useAppStore } from "../../src/stores/app";
 
 const appStore = useAppStore();
 
-const text = computed(() => {
-  return `指纹：（${appStore.visitorId}）慢慢来，不要急，生活给你出了难题，可也终有一天会给出答案。`;
+const texts = computed(() => {
+  return [
+    `指纹：（${appStore.visitorId}）`,
+    `指纹：（${appStore.fingerprint}）`,
+    "慢慢来，不要急，生活给你出了难题，可也终有一天会给出答案。",
+  ];
 });
-const keywords = "难题";
+const keywords = ["难题", "指纹"];
 
 const images = [
   "https://fastly.jsdelivr.net/npm/@vant/assets/apple-1.jpeg",

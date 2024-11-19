@@ -13,6 +13,7 @@ import { ElAutoResizer } from "element-plus";
 import { useRoute, useRouter } from "vue-router";
 import { swapMd } from "./router";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
+import { ClientJS } from "clientjs";
 import { onBeforeMount } from "vue";
 import { useAppStore } from "./stores/app";
 
@@ -33,6 +34,11 @@ onBeforeMount(async () => {
   const result = await fp.get();
   console.log("fingerprint:", result.visitorId);
   appStore.visitorId = result.visitorId;
+
+  const client = new ClientJS();
+  const fingerprint = client.getFingerprint();
+  console.log("clientjs:", fingerprint);
+  appStore.fingerprint = fingerprint;
 });
 </script>
 

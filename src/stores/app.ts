@@ -11,6 +11,7 @@ export const useAppStore = defineStore(
     const notice = ref("");
     
     const visitorId = ref("");
+    const fingerprint = ref<number>(0);
 
     return {
       hasBack,
@@ -18,6 +19,7 @@ export const useAppStore = defineStore(
       isMdShowTabbar,
       notice,
       visitorId,
+      fingerprint,
     };
   },
   {

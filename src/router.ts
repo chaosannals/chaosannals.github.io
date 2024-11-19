@@ -74,12 +74,12 @@ export const router = createRouter({
 
 export const swapMd = (to: RouteLocationNormalized) => {
   if (isMd()) {
-    if (!to.fullPath.startsWith("/md")) {
+    if (!to.fullPath.startsWith("/md") && (to.fullPath = "/")) {
       console.log("redirect md", to.fullPath);
       return { path: "/md/index" };
     }
   } else {
-    if (to.fullPath.startsWith("/md")) {
+    if (to.fullPath.startsWith("/md") && (to.fullPath = "/")) {
       console.log("redirect pc", to.fullPath);
       return { path: "/index" };
     }
